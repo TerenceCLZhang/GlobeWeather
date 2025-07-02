@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../store/store";
 import Form from "./Form";
 import WeatherDataDisplay from "./WeatherDataDisplay";
@@ -10,11 +10,14 @@ function Main() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [location, setLocation] = useState<string>("Auckland");
-  const [weatherData, setWeatherData] = useState<
-    WeatherDataInterface | undefined
-  >();
+  const [weatherData, setWeatherData] = useState<WeatherDataInterface | null>(
+    null
+  );
 
   const unit = useSelector((state: RootState) => state.unit);
+  //   const weatherData = useSelector((state: RootState) => state.weatherData);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchData(location, unit.measurement, setLoading, setWeatherData, setError);
@@ -39,7 +42,11 @@ function Main() {
               : "N/A"}
           </h2>
         </div>
-        <Form setLocation={setLocation} setWeatherData={setWeatherData} />
+        <Form
+          location={location}
+          setLocation={setLocation}
+          setWeatherData={setWeatherData}
+        />
       </section>
 
       <WeatherDataDisplay

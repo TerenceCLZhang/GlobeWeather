@@ -8,7 +8,7 @@ export const fetchData = async (
   units: "metric" | "imperial",
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setWeatherData: React.Dispatch<
-    React.SetStateAction<WeatherDataInterface | undefined>
+    React.SetStateAction<WeatherDataInterface | null>
   >,
   setError: React.Dispatch<React.SetStateAction<string>>
 ) => {
@@ -30,7 +30,8 @@ export const fetchData = async (
     const weatherData: WeatherDataInterface = {
       countryCode: data.sys.country,
       countryName: data.name,
-      date: data.dt,
+      dt: data.dt,
+      timezone: data.timezone,
       temp: data.main.temp.toFixed(2),
       pressure: data.main.pressure,
       windSpeed: data.wind.speed.toFixed(2),

@@ -10,21 +10,23 @@ const schema = z.object({
 type Inputs = z.infer<typeof schema>;
 
 interface Props {
+  location: string;
   setLocation: React.Dispatch<React.SetStateAction<string>>;
   setWeatherData: React.Dispatch<
-    React.SetStateAction<WeatherDataInterface | undefined>
+    React.SetStateAction<WeatherDataInterface | null>
   >;
 }
 
-function Form({ setLocation, setWeatherData }: Props) {
+function Form({ location, setLocation, setWeatherData }: Props) {
   const { register, handleSubmit } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
 
   const onSubmit = (data: Inputs) => {
-    const location = data.location.toLowerCase();
-    setWeatherData(undefined);
-    setLocation(location);
+    const newLocation = data.location.toLowerCase();
+    if (location === newLocation) return;
+    setWeatherData(null);
+    setLocation(newLocation);
   };
 
   return (

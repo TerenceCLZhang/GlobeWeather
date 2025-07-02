@@ -5,7 +5,7 @@ import WeatherData from "./WeatherData";
 import { useEffect, useState } from "react";
 
 interface Props {
-  weatherData: WeatherDataInterface | undefined;
+  weatherData: WeatherDataInterface | null;
   loading: boolean;
   error: string;
 }
@@ -19,14 +19,24 @@ function WeatherDataDisplay({ weatherData, loading, error }: Props) {
       setDate("");
       return;
     }
-    const epochTime = weatherData?.date;
-    const date = new Date(epochTime * 1000);
-    const formattedDate = date.toLocaleDateString("en-nz", {
+
+    const { dt, timezone } = weatherData;
+
+    if (typeof dt !== "number" || typeof timezone !== "number") {
+      setDate("");
+      return;
+    }
+
+    const localTimeMs = (dt + timezone) * 1000;
+    const localDate = new Date(localTimeMs);
+
+    const formattedDate = new Intl.DateTimeFormat("en-NZ", {
       weekday: "short",
       day: "numeric",
       month: "short",
       year: "numeric",
-    });
+    }).format(localDate);
+
     setDate(formattedDate);
   }, [weatherData]);
 

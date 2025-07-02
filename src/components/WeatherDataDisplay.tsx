@@ -22,11 +22,6 @@ function WeatherDataDisplay({ weatherData, loading, error }: Props) {
 
     const { dt, timezone } = weatherData;
 
-    if (typeof dt !== "number" || typeof timezone !== "number") {
-      setDate("");
-      return;
-    }
-
     const localTimeMs = (dt + timezone) * 1000;
     const localDate = new Date(localTimeMs);
 
@@ -46,7 +41,7 @@ function WeatherDataDisplay({ weatherData, loading, error }: Props) {
         <>
           <h2 className="text-7xl font-semibold">
             {weatherData.temp}
-            {unit.measurement === "metric" ? "°C" : "°F"}
+            {unit === "metric" ? "°C" : "°F"}
           </h2>
           <span className="mb-4">{date}</span>
           <WeatherData weatherData={weatherData} />

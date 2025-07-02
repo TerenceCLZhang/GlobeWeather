@@ -15,12 +15,12 @@ function Main() {
   );
 
   const unit = useSelector((state: RootState) => state.unit);
-  //   const weatherData = useSelector((state: RootState) => state.weatherData);
+  // const weatherData = useSelector((state: RootState) => state.weatherData);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchData(location, unit.measurement, setLoading, setWeatherData, setError);
+    fetchData(location, unit, setLoading, setWeatherData, setError);
   }, [location, unit]);
 
   return (

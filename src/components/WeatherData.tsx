@@ -9,8 +9,8 @@ interface Props {
 function WeatherData({ weatherData }: Props) {
   const unit = useSelector((state: RootState) => state.unit);
 
-  const tempUnit = unit.measurement === "metric" ? "°C" : "°F";
-  const speedUnit = unit.measurement === "metric" ? "km/h" : "mph";
+  const tempUnit = unit === "metric" ? "°C" : "°F";
+  const speedUnit = unit === "metric" ? "km/h" : "mph";
 
   const formatValue = (value: any, suffix: string = "") => {
     return `${value}${suffix}`;

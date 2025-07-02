@@ -6,7 +6,7 @@ function Footer() {
         <a
           href="https://github.com/TerenceCLZhang"
           target="_blank"
-          className="text-orange-400 font-bold hover:underline"
+          className="text-orange-600 font-bold hover:underline"
         >
           Terence Zhang
         </a>

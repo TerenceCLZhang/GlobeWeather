@@ -36,7 +36,11 @@ export const fetchData = async (
       pressure: data.main.pressure,
       windSpeed: data.wind.speed.toFixed(2),
       humidity: data.main.humidity,
-      weatherType: data.weather[0]?.main || "Unknown",
+      weatherType:
+        data.weather[0]?.description
+          .split(" ")
+          .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ") || "Unknown",
       minTemp: data.main.temp_min.toFixed(2),
       maxTemp: data.main.temp_max.toFixed(2),
       feelsLike: data.main.feels_like.toFixed(2),

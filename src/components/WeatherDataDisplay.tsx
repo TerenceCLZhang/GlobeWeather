@@ -1,18 +1,17 @@
 import { useSelector } from "react-redux";
-import type { RootState } from "../store/store";
-import type { WeatherDataInterface } from "../types/WeatherDataInterface";
+import type { RootState } from "../state/store";
 import WeatherData from "./WeatherData";
 import { useEffect, useState } from "react";
 
 interface Props {
-  weatherData: WeatherDataInterface | null;
   loading: boolean;
   error: string;
 }
 
-function WeatherDataDisplay({ weatherData, loading, error }: Props) {
+function WeatherDataDisplay({ loading, error }: Props) {
   const [date, setDate] = useState<String>("");
-  const unit = useSelector((state: RootState) => state.unit);
+  const unit = useSelector((state: RootState) => state.unit.unit);
+  const weatherData = useSelector((state: RootState) => state.weatherData.data);
 
   useEffect(() => {
     if (!weatherData) {
@@ -44,7 +43,7 @@ function WeatherDataDisplay({ weatherData, loading, error }: Props) {
             {unit === "metric" ? "°C" : "°F"}
           </h2>
           <span className="mb-4">{date}</span>
-          <WeatherData weatherData={weatherData} />
+          <WeatherData />
         </>
       ) : (
         <p>{loading ? "Loading..." : error ? error : "Unexpected state"}</p>

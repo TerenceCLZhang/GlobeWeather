@@ -1,20 +1,21 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { WeatherDataInterface } from "../types/WeatherDataInterface";
 
-type WeatherState = WeatherDataInterface | null;
+interface WeatherState {
+  data: WeatherDataInterface | null;
+}
 
-const initialState: WeatherState = null;
+const initialState: WeatherState = { data: null };
 
 export const WeatherDataSlice = createSlice({
   name: "weatherData",
   initialState,
   reducers: {
-    // @ts-expect-error
-    setWeatherData: (_state, action: PayloadAction<WeatherDataInterface>) => {
-      return action.payload;
+    setWeatherData: (state, action: PayloadAction<WeatherDataInterface>) => {
+      state.data = action.payload;
     },
-    clearWeatherData: () => {
-      return null;
+    clearWeatherData: (state) => {
+      state.data = null;
     },
   },
 });

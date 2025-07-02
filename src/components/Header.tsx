@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeUnit } from "../store/UnitSlice";
-import type { RootState } from "../store/store";
+import { changeUnit } from "../state/UnitSlice";
+import type { RootState } from "../state/store";
 
 function Header() {
-  const unit = useSelector((state: RootState) => state.unit);
+  const unit = useSelector((state: RootState) => state.unit.unit);
   const dispatch = useDispatch();
 
   return (
@@ -15,7 +15,6 @@ function Header() {
       </a>
       <button
         className="absolute top-10 right-10 button-orange"
-        // @ts-expect-error
         onClick={() => dispatch(changeUnit())}
       >
         Switch to <b>{unit === "metric" ? "Fahrenheit" : "Metric"}</b>

@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { z } from "zod";
-import type { WeatherDataInterface } from "../types/WeatherDataInterface";
+import { clearWeatherData } from "../state/WeatherDataSlice";
 
 const schema = z.object({
   location: z.string().min(1),
@@ -12,20 +13,19 @@ type Inputs = z.infer<typeof schema>;
 interface Props {
   location: string;
   setLocation: React.Dispatch<React.SetStateAction<string>>;
-  setWeatherData: React.Dispatch<
-    React.SetStateAction<WeatherDataInterface | null>
-  >;
 }
 
-function Form({ location, setLocation, setWeatherData }: Props) {
+function Form({ location, setLocation }: Props) {
   const { register, handleSubmit } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
 
+  const dispatch = useDispatch();
+
   const onSubmit = (data: Inputs) => {
     const newLocation = data.location.toLowerCase();
     if (location === newLocation) return;
-    setWeatherData(null);
+    dispatch(clearWeatherData());
     setLocation(newLocation);
   };
 
@@ -38,7 +38,7 @@ function Form({ location, setLocation, setWeatherData }: Props) {
       <input
         type="text"
         placeholder="Enter a location"
-        className="placeholder:text-white text-white focus:outline-0 w-full mr-5 px-5"
+        className="placeholder:text-gray-300 text-white focus:outline-0 w-full mr-5 px-5"
         {...register("location")}
       />
       <input type="submit" value="Search" className="button-orange" />

@@ -1,16 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type UnitType = "metric" | "imperial";
+interface UnitType {
+  unit: "metric" | "imperial";
+}
 
-const initialState: UnitType = "metric";
+const initialState: UnitType = { unit: "metric" };
 
 export const UnitSlice = createSlice({
   name: "unit",
   initialState,
   reducers: {
-    // @ts-expect-error
     changeUnit: (state) => {
-      return state === "metric" ? "imperial" : "metric";
+      state.unit === "metric"
+        ? (state.unit = "imperial")
+        : (state.unit = "metric");
     },
   },
 });

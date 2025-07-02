@@ -1,13 +1,9 @@
 import { useSelector } from "react-redux";
-import type { RootState } from "../store/store";
-import type { WeatherDataInterface } from "../types/WeatherDataInterface";
+import type { RootState } from "../state/store";
 
-interface Props {
-  weatherData: WeatherDataInterface | undefined;
-}
-
-function WeatherData({ weatherData }: Props) {
-  const unit = useSelector((state: RootState) => state.unit);
+function WeatherData() {
+  const unit = useSelector((state: RootState) => state.unit.unit);
+  const weatherData = useSelector((state: RootState) => state.weatherData.data);
 
   const tempUnit = unit === "metric" ? "°C" : "°F";
   const speedUnit = unit === "metric" ? "km/h" : "mph";

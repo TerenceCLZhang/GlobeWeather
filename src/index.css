@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply flex  items-center justify-center min-h-screen bg-[url("/stock.jpg")] bg-center bg-no-repeat bg-cover text-white text-lg;
+  }
+
+  main {
+    @apply grid grid-cols-2 gap-[10rem] w-[80vw] h-[65vh] place-items-center;
+  }
+
+  button,
+  input[type="submit"] {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .black-background {
+    @apply bg-black/75 p-5 flex rounded-lg;
+  }
+
+  .weather-info-block {
+    @apply flex flex-col gap-2;
+  }
+
+  .button-orange {
+    @apply bg-orange-600 hover:bg-orange-300 hover:text-black hover:scale-105 py-2 px-7 rounded-lg transition duration-100 ease-in;
+  }
+}

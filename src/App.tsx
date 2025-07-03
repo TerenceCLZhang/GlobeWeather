@@ -15,23 +15,21 @@ function App() {
     "thunderstorm",
   ];
 
-  const weatherType = useSelector(
-    (state: RootState) => state.weatherData.data?.main
-  );
+  const weatherData = useSelector((state: RootState) => state.weatherData.data);
   const loading = useSelector((state: RootState) => state.status.loading);
 
   useEffect(() => {
+    setBgImage("default");
+    const weatherType = weatherData?.main;
     const type = weatherType?.toLowerCase();
     const image = type && validType.includes(type) ? type : "default";
     setBgImage(image);
-  }, [weatherType]);
+  }, [weatherData]);
 
   return (
     <>
       <div
-        className={`absolute top-0 left-0 w-full h-full -z-10 transition-opacity duration-700 ${
-          loading ? "opacity-0" : "opacity-100"
-        }`}
+        className={`absolute top-0 left-0 w-full h-full -z-10 transition-opacity duration-700`}
         style={{
           backgroundImage: loading ? "none" : `url('/assets/${bgImage}.jpg')`,
           backgroundPosition: "center",

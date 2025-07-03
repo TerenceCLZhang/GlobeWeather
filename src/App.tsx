@@ -29,11 +29,15 @@ function App() {
   return (
     <>
       <div
-        className={`absolute top-0 left-0 w-full h-full -z-10 ${
-          loading
-            ? "bg-gray-600"
-            : `bg-[url('./assets/${bgImage}.jpg')] bg-center bg-no-repeat bg-cover`
+        className={`absolute top-0 left-0 w-full h-full -z-10 transition-opacity duration-700 ${
+          loading ? "opacity-0" : "opacity-100"
         }`}
+        style={{
+          backgroundImage: loading ? "none" : `url('/assets/${bgImage}.jpg')`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
       ></div>
       <div className="absolute -z-10 inset-0 bg-black/60"></div>
       <Header />

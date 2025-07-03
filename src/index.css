@@ -2,7 +2,7 @@
 
 @layer base {
   body {
-    @apply flex  items-center justify-center min-h-screen text-white text-lg;
+    @apply flex  items-center justify-center min-h-screen text-white text-lg bg-gray-900;
   }
 
   main {

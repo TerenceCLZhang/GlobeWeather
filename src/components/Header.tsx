@@ -17,7 +17,7 @@ function Header() {
         className="absolute top-10 right-10 button-orange"
         onClick={() => dispatch(changeUnit())}
       >
-        Switch to <b>{unit === "metric" ? "Fahrenheit" : "Metric"}</b>
+        Switch to <b>{unit === "metric" ? "Imperial" : "Metric"}</b>
       </button>
     </header>
   );

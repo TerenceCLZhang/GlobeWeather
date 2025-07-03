@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 import { clearWeatherData, setWeatherData } from "../state/WeatherDataSlice";
 import axios from "axios";
 import type { WeatherDataInterface } from "../types/WeatherDataInterface";
+import { changeLoading, clearError, setError } from "../state/StatusSlice";
 
 function Main() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
   const [location, setLocation] = useState<string>("Auckland");
 
   const unit = useSelector((state: RootState) => state.unit.unit);
   const weatherData = useSelector((state: RootState) => state.weatherData.data);
+  const status = useSelector((state: RootState) => state.status);
 
   const dispatch = useDispatch();
 
@@ -22,8 +22,8 @@ function Main() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setError("");
-        setLoading(true);
+        dispatch(clearError());
+        dispatch(changeLoading());
 
         const response = await axios.get(
           `https://api.openweathermap.org/data/2.5/weather`,
@@ -47,8 +47,9 @@ function Main() {
           pressure: data.main.pressure,
           windSpeed: data.wind.speed.toFixed(2),
           humidity: data.main.humidity,
+          main: data.weather[0].main,
           weatherType:
-            data.weather[0]?.description
+            data.weather[0].description
               .split(" ")
               .map(
                 (word: string) => word.charAt(0).toUpperCase() + word.slice(1)
@@ -62,19 +63,11 @@ function Main() {
 
         dispatch(setWeatherData(weatherData));
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          const statusCode = error.response?.status;
-          const errorMessage =
-            error.response?.data?.message ||
-            error.message ||
-            "An error occured";
-          setError(`ERROR ${statusCode}: ${errorMessage}.`);
-        } else {
-          setError("An unexpected error occured.");
-        }
+        dispatch(setError("ERROR: location does not exist"));
         dispatch(clearWeatherData());
+        console.log(error);
       } finally {
-        setLoading(false);
+        dispatch(changeLoading());
       }
     };
 
@@ -86,14 +79,14 @@ function Main() {
       <section className="flex flex-col justify-start gap-10 w-full overflow-hidden">
         <div>
           <span className="text-4xl">
-            {loading
+            {status.loading
               ? "Loading..."
               : weatherData
               ? weatherData?.countryCode
               : "N/A"}
           </span>
           <h2 className="text-8xl font-bold break-words">
-            {loading
+            {status.loading
               ? "Loading..."
               : weatherData
               ? weatherData?.countryName
@@ -103,7 +96,7 @@ function Main() {
         <Form location={location} setLocation={setLocation} />
       </section>
 
-      <WeatherDataDisplay loading={loading} error={error} />
+      <WeatherDataDisplay />
     </main>
   );
 }

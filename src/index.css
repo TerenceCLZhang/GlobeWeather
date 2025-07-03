@@ -2,7 +2,7 @@
 
 @layer base {
   body {
-    @apply flex  items-center justify-center min-h-screen bg-[url("/stock.jpg")] bg-center bg-no-repeat bg-cover text-white text-lg;
+    @apply flex  items-center justify-center min-h-screen text-white text-lg;
   }
 
   main {

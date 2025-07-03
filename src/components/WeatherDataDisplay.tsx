@@ -3,15 +3,12 @@ import type { RootState } from "../state/store";
 import WeatherData from "./WeatherData";
 import { useEffect, useState } from "react";
 
-interface Props {
-  loading: boolean;
-  error: string;
-}
-
-function WeatherDataDisplay({ loading, error }: Props) {
+function WeatherDataDisplay() {
   const [date, setDate] = useState<String>("");
+
   const unit = useSelector((state: RootState) => state.unit.unit);
   const weatherData = useSelector((state: RootState) => state.weatherData.data);
+  const status = useSelector((state: RootState) => state.status);
 
   useEffect(() => {
     if (!weatherData) {
@@ -36,7 +33,7 @@ function WeatherDataDisplay({ loading, error }: Props) {
 
   return (
     <section className="black-background flex flex-col items-center justify-center text-center w-[80%] h-full gap-5">
-      {weatherData && !loading ? (
+      {weatherData && !status.loading ? (
         <>
           <h2 className="text-7xl font-semibold">
             {weatherData.temp}
@@ -46,7 +43,13 @@ function WeatherDataDisplay({ loading, error }: Props) {
           <WeatherData />
         </>
       ) : (
-        <p>{loading ? "Loading..." : error ? error : "Unexpected state"}</p>
+        <p>
+          {status.loading
+            ? "Loading..."
+            : status.error
+            ? status.error
+            : "An unexpected error occured"}
+        </p>
       )}
     </section>
   );

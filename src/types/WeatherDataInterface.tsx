@@ -7,6 +7,7 @@ export interface WeatherDataInterface {
   pressure: number;
   windSpeed: number;
   humidity: number;
+  main: string;
   weatherType: string;
   minTemp: number;
   maxTemp: number;

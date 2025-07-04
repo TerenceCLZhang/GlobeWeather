@@ -81,10 +81,10 @@ function Form() {
   return (
     <form
       action="#"
-      className="black-background flex flex-col items-center gap-5 md:flex-row"
+      className="black-background flex flex-col items-center gap-5 xl:flex-row"
       onSubmit={onSubmit}
     >
-      <div className="w-full relative md:w-3/4">
+      <div className="w-full relative">
         <input
           type="text"
           placeholder="Enter a location"
@@ -92,6 +92,7 @@ function Form() {
           name="locationName"
           onChange={onChange}
           value={value}
+          autoComplete="off"
           required
         />
 

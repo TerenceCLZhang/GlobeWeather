@@ -8,16 +8,16 @@ function Header() {
 
   return (
     <header>
-      <a href="/" className="absolute top-10 left-10 ">
-        <h1 className="text-3xl font-bold">
+      <a href="/" className="absolute top-10 left-5 md:left-10">
+        <h1 className="text-2xl sm:text-3xl font-bold">
           Globe<span className="text-orange-600">Weather</span>
         </h1>
       </a>
       <button
-        className="absolute top-10 right-10 button-orange"
+        className="absolute top-10 right-5 md:right-10 button-orange"
         onClick={() => dispatch(changeUnit())}
       >
-        Switch to <b>{unit === "metric" ? "Imperial" : "Metric"}</b>
+        <b>{unit === "metric" ? "Imperial" : "Metric"}</b>
       </button>
     </header>
   );

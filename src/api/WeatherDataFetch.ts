@@ -1,11 +1,12 @@
 import axios from "axios";
 import type { WeatherDataInterface } from "../types/WeatherDataInterface";
+import { handleAxiosError } from "./HandleAxiosError";
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 export const WeatherDataFetch = async (
-  unit: "metric" | "imperial",
-  location: string,
+  lat: number,
+  lon: number,
   clearError: () => void,
   changeLoading: () => void,
   setWeatherData: (data: WeatherDataInterface) => void,
@@ -16,12 +17,14 @@ export const WeatherDataFetch = async (
     clearError();
     changeLoading();
 
+    // console.log("API CALLED");
+
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather`,
+      "https://api.openweathermap.org/data/2.5/weather",
       {
         params: {
-          q: location.toLowerCase(),
-          units: unit,
+          lat: lat,
+          lon: lon,
           appid: API_KEY,
         },
       }
@@ -30,13 +33,11 @@ export const WeatherDataFetch = async (
     const data = response.data;
 
     const weatherData: WeatherDataInterface = {
-      countryCode: data.sys.country,
-      countryName: data.name,
       dt: data.dt,
       timezone: data.timezone,
-      temp: data.main.temp.toFixed(2),
+      temp: data.main.temp,
       pressure: data.main.pressure,
-      windSpeed: data.wind.speed.toFixed(2),
+      windSpeed: data.wind.speed,
       humidity: data.main.humidity,
       main: data.weather[0].main,
       weatherType:
@@ -44,17 +45,16 @@ export const WeatherDataFetch = async (
           .split(" ")
           .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" ") || "Unknown",
-      minTemp: data.main.temp_min.toFixed(2),
-      maxTemp: data.main.temp_max.toFixed(2),
-      feelsLike: data.main.feels_like.toFixed(2),
+      minTemp: data.main.temp_min,
+      maxTemp: data.main.temp_max,
+      feelsLike: data.main.feels_like,
       cloudiness: data.clouds.all,
     };
 
     setWeatherData(weatherData);
   } catch (error) {
-    setError("ERROR: location does not exist");
     clearWeatherData();
-    console.log(error);
+    handleAxiosError(error, setError);
   } finally {
     changeLoading();
   }

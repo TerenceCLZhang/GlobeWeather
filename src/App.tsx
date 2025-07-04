@@ -15,7 +15,7 @@ function App() {
     "thunderstorm",
   ];
 
-  const weatherData = useSelector((state: RootState) => state.weatherData.data);
+  const weatherData = useSelector((state: RootState) => state.weatherData);
   const loading = useSelector((state: RootState) => state.status.loading);
 
   useEffect(() => {
@@ -29,15 +29,12 @@ function App() {
   return (
     <>
       <div
-        className={`absolute top-0 left-0 w-full h-full -z-10 transition-opacity duration-700`}
+        className={`fixed top-0 left-0 w-full h-full -z-10 transition-opacity duration-700 bg-center bg-no-repeat bg-cover`}
         style={{
           backgroundImage: loading ? "none" : `url('/assets/${bgImage}.jpg')`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
         }}
       ></div>
-      <div className="absolute -z-10 inset-0 bg-black/60"></div>
+      <div className="fixed -z-10 inset-0 bg-black/60"></div>
       <Header />
       <Main />
     </>

@@ -2,11 +2,15 @@
 
 @layer base {
   body {
-    @apply flex  items-center justify-center min-h-screen text-white text-lg bg-gray-900;
+    @apply px-5 py-10 flex items-center justify-center min-h-screen text-white text-lg bg-gray-900;
+  }
+
+  header {
+    @apply mb-18 md:mb-0;
   }
 
   main {
-    @apply grid grid-cols-2 gap-[10rem] w-[80vw] h-[65vh] place-items-center;
+    @apply flex flex-col px-5 gap-5 md:gap-15 2xl:gap-[10rem]  lg:grid lg:grid-cols-2 w-auto lg:h-[65vh] lg:place-items-center;
   }
 
   button,
@@ -26,5 +30,13 @@
 
   .button-orange {
     @apply bg-orange-600 hover:bg-orange-300 hover:text-black hover:scale-105 py-2 px-7 rounded-lg transition duration-100 ease-in;
+  }
+
+  .dropdown {
+    @apply absolute top-full left-0 right-0 text-black bg-white border border-gray-500 list-none p-0 m-0 max-h-[150px] overflow-y-auto z-50;
+  }
+
+  .dropdown li {
+    @apply px-2 py-3 cursor-pointer hover:bg-gray-300;
   }
 }

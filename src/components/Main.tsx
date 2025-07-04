@@ -2,52 +2,67 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../state/store";
 import Form from "./Form";
 import WeatherDataDisplay from "./WeatherDataDisplay";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { WeatherDataFetch } from "../api/WeatherDataFetch";
 import { clearWeatherData, setWeatherData } from "../state/WeatherDataSlice";
 import { changeLoading, clearError, setError } from "../state/StatusSlice";
 
 function Main() {
-  const [location, setLocation] = useState<string>("Auckland");
-
-  const unit = useSelector((state: RootState) => state.unit.unit);
-  const weatherData = useSelector((state: RootState) => state.weatherData.data);
+  const location = useSelector((state: RootState) => state.location);
+  const weatherData = useSelector((state: RootState) => state.weatherData);
   const status = useSelector((state: RootState) => state.status);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setError("");
     WeatherDataFetch(
-      unit,
-      location,
+      location.lat,
+      location.lon,
       () => dispatch(clearError()),
       () => dispatch(changeLoading()),
       (data) => dispatch(setWeatherData(data)),
       () => dispatch(clearWeatherData()),
       (msg) => dispatch(setError(msg))
     );
-  }, [location, unit]);
+  }, [location]);
 
   return (
     <main>
-      <section className="flex flex-col justify-start gap-10 w-full overflow-hidden">
-        <div>
-          <span className="text-4xl">
+      <section className="flex flex-col justify-start gap-5 w-full">
+        <div className="md:mb-5">
+          <span className="text-2xl xl:text-4xl">
             {status.loading
               ? "Loading..."
-              : weatherData
-              ? weatherData?.countryCode
+              : weatherData.temp !== -1
+              ? `${location.state ? `${location.state}, ` : ""}${
+                  location.country
+                }`
               : "N/A"}
           </span>
-          <h2 className="text-8xl font-bold break-words">
+          <h2 className="text-6xl xl:text-8xl font-bold break-words">
             {status.loading
               ? "Loading..."
-              : weatherData
-              ? weatherData?.countryName
+              : weatherData.temp !== -1
+              ? location.name
               : "N/A"}
           </h2>
         </div>
-        <Form location={location} setLocation={setLocation} />
+        <Form />
+        <p className="text-center lg:text-left">
+          Longitude:{" "}
+          {status.loading
+            ? "Loading..."
+            : weatherData.temp !== -1
+            ? location.lon.toFixed(2)
+            : "N/A"}{" "}
+          Latitude:{" "}
+          {status.loading
+            ? "Loading..."
+            : weatherData.temp !== -1
+            ? location.lat.toFixed(2)
+            : "N/A"}
+        </p>
       </section>
 
       <WeatherDataDisplay />

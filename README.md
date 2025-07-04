@@ -6,7 +6,5 @@ Created with:
 - React
 - TypeScript
 - Tailwind CSS
-- React Hook Forms
-- Zod
 - Redux
-- OpenWeather API
+- OpenWeatherMap API

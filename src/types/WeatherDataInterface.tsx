@@ -1,6 +1,4 @@
 export interface WeatherDataInterface {
-  countryCode: string;
-  countryName: string;
   dt: number;
   timezone: number;
   temp: number;

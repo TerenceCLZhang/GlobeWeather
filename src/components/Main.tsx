@@ -50,17 +50,17 @@ function Main() {
         </div>
         <Form />
         <p className="text-center lg:text-left">
-          Longitude:{" "}
-          {status.loading
-            ? "Loading..."
-            : weatherData.temp !== -1
-            ? location.lon.toFixed(2)
-            : "N/A"}{" "}
-          Latitude:{" "}
+          <b>Latitude</b>:{" "}
           {status.loading
             ? "Loading..."
             : weatherData.temp !== -1
             ? location.lat.toFixed(2)
+            : "N/A"}{" "}
+          <b>Longitude</b>:{" "}
+          {status.loading
+            ? "Loading..."
+            : weatherData.temp !== -1
+            ? location.lon.toFixed(2)
             : "N/A"}
         </p>
       </section>

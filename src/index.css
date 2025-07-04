@@ -10,7 +10,7 @@
   }
 
   main {
-    @apply flex flex-col px-5 gap-5 md:gap-15 2xl:gap-[10rem] lg:grid lg:grid-cols-2 w-auto lg:h-[65vh] lg:place-items-center 2xl:w-[80vw];
+    @apply flex flex-col px-5 gap-5 md:gap-15 2xl:gap-[10rem] 2xl:w-[80vw] lg:flex-row lg:items-center;
   }
 
   button,

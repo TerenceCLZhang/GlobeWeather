@@ -51,3 +51,22 @@ export const geoLocationFetch = async (
     handleAxiosError(error, setError);
   }
 };
+
+export const fetchLocationLatLon = async (
+  lat: number,
+  lon: number
+): Promise<LocationInterface[]> => {
+  // console.log("API CALLED");
+  const response = await axios.get<LocationInterface[]>(
+    "http://api.openweathermap.org/geo/1.0/reverse",
+    {
+      params: {
+        lat: lat,
+        lon: lon,
+        appid: API_KEY,
+      },
+    }
+  );
+
+  return response.data;
+};

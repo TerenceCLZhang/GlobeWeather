@@ -35,7 +35,7 @@ function WeatherDataDisplay() {
   }, [weatherData]);
 
   return (
-    <section className="black-background flex flex-col items-center justify-center text-center w-full xl:w-[80%] h-full gap-5">
+    <section className="black-background flex flex-col items-center justify-center text-center w-full xl:w-3/5 h-full gap-5">
       {weatherData.temp !== -1 && !status.loading ? (
         <>
           <h2 className="text-6xl xl:text-7xl font-semibold">

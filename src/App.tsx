@@ -7,7 +7,7 @@ import { WeatherDataFetch } from "./api/WeatherDataFetch";
 import { changeLoading, clearError, setError } from "./state/StatusSlice";
 import { clearWeatherData, setWeatherData } from "./state/WeatherDataSlice";
 import { setLocation } from "./state/LocationSlice";
-import { fetchLocationLatLon } from "./api/GeoLocationFetch";
+import { fetchGeoDataLatLon } from "./api/GeoLocation";
 
 function App() {
   const [bgImage, setBgImage] = useState<String>("default");
@@ -43,7 +43,7 @@ function App() {
         (msg) => dispatch(setError(msg))
       );
 
-      const location = await fetchLocationLatLon(lat, lon);
+      const location = await fetchGeoDataLatLon(lat, lon);
       dispatch(setLocation(location[0]));
     });
   }, []);

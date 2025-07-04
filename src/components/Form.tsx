@@ -3,7 +3,7 @@ import { clearWeatherData } from "../state/WeatherDataSlice";
 import type { LocationInterface } from "../types/LocationInterface";
 import { useState, type FormEvent } from "react";
 import { setLocation } from "../state/LocationSlice";
-import { fetchGeoData, geoLocationFetch } from "../api/GeoLocationFetch";
+import { fetchGeoData, geoLocationFetch } from "../api/GeoLocation";
 import { handleAxiosError } from "../api/HandleAxiosError";
 import { setError } from "../state/StatusSlice";
 

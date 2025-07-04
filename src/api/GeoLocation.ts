@@ -4,6 +4,25 @@ import { handleAxiosError } from "./HandleAxiosError";
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
+export const fetchGeoDataLatLon = async (
+  lat: number,
+  lon: number
+): Promise<LocationInterface[]> => {
+  // console.log("API CALLED");
+  const response = await axios.get<LocationInterface[]>(
+    "http://api.openweathermap.org/geo/1.0/reverse",
+    {
+      params: {
+        lat: lat,
+        lon: lon,
+        appid: API_KEY,
+      },
+    }
+  );
+
+  return response.data;
+};
+
 export const fetchGeoData = async (
   location: string,
   limit: number = 1
@@ -50,23 +69,4 @@ export const geoLocationFetch = async (
     setShowDropdown(true);
     handleAxiosError(error, setError);
   }
-};
-
-export const fetchLocationLatLon = async (
-  lat: number,
-  lon: number
-): Promise<LocationInterface[]> => {
-  // console.log("API CALLED");
-  const response = await axios.get<LocationInterface[]>(
-    "http://api.openweathermap.org/geo/1.0/reverse",
-    {
-      params: {
-        lat: lat,
-        lon: lon,
-        appid: API_KEY,
-      },
-    }
-  );
-
-  return response.data;
 };

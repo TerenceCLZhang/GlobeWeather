@@ -5,7 +5,7 @@
 ## 🚀 Features
 
 - **Location search with autocomplete suggestions**
-- **Real-time weather data** including temperature, wind speed, humidifty, and more
+- **Real-time weather data** including temperature, wind speed, humidity, and more
 - **Unit toggle** (Metric ↔ Imperial)
 - **Keyboard navigation and screen reader support**
 - **Reponsive design** for desktop and mobile

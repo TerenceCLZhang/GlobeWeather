@@ -116,7 +116,11 @@ function Form() {
       onSubmit={onSubmit}
     >
       <div className="w-full relative">
+        <label htmlFor="locationName" className="sr-only">
+          Location search input
+        </label>
         <input
+          id="locationName"
           type="text"
           placeholder="Enter a location"
           className="placeholder:text-gray-300 text-white border-2 border-gray-300 rounded-lg w-full py-2 px-3"
@@ -126,6 +130,14 @@ function Form() {
           value={value}
           autoComplete="off"
           required
+          aria-autocomplete="list"
+          aria-controls="location-suggestion-list"
+          aria-expanded={showDropdown}
+          aria-activedescendant={
+            highlightIndex >= 0
+              ? `location-option-${highlightIndex}`
+              : undefined
+          }
         />
 
         {showDropdown && (
@@ -133,7 +145,10 @@ function Form() {
             {suggestions.length > 0 ? (
               suggestions.map((loc, idx) => (
                 <li
+                  id={`location-option-${idx}`}
                   key={idx}
+                  role="option"
+                  aria-selected={highlightIndex === idx}
                   onClick={() => onSelectSuggestion(loc)}
                   className={`${
                     idx === highlightIndex ? "bg-gray-600 text-white" : ""
@@ -153,6 +168,7 @@ function Form() {
           type="button"
           className="button-orange"
           onClick={showSuggestions}
+          aria-label="Show suggestions"
         >
           Suggestions
         </button>

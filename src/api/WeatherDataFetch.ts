@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { WeatherDataInterface } from "../types/WeatherDataInterface";
-import { handleAxiosError } from "./HandleAxiosError";
+import { handleAxiosError } from "./handleError";
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
@@ -17,7 +17,7 @@ export const WeatherDataFetch = async (
     clearError();
     changeLoading();
 
-    console.log("API CALLED");
+    // console.log("API CALLED");
 
     const response = await axios.get(
       "https://api.openweathermap.org/data/2.5/weather",

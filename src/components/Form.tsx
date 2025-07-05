@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
-import { clearWeatherData } from "../state/WeatherDataSlice";
+import { clearWeatherData } from "../state/weatherDataSlice";
 import type { LocationInterface } from "../types/LocationInterface";
 import { useState, type FormEvent } from "react";
-import { setLocation } from "../state/LocationSlice";
-import { fetchGeoData, geoLocationFetch } from "../api/GeoLocation";
-import { handleAxiosError } from "../api/HandleAxiosError";
-import { setError } from "../state/StatusSlice";
+import { setLocation } from "../state/locationSlice";
+import { fetchGeoData, geoLocationFetch } from "../api/geoCoding";
+import { handleAxiosError } from "../api/handleError";
+import { setError } from "../state/statusSlice";
 
 function Form() {
   const [value, setValue] = useState<string>("");

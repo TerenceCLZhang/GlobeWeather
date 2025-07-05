@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "./state/store";
 import { useEffect, useState } from "react";
 import { WeatherDataFetch } from "./api/WeatherDataFetch";
-import { changeLoading, clearError, setError } from "./state/StatusSlice";
-import { clearWeatherData, setWeatherData } from "./state/WeatherDataSlice";
-import { setLocation } from "./state/LocationSlice";
-import { fetchGeoDataLatLon } from "./api/GeoLocation";
+import { changeLoading, clearError, setError } from "./state/statusSlice";
+import { clearWeatherData, setWeatherData } from "./state/weatherDataSlice";
+import { setLocation } from "./state/locationSlice";
+import { fetchGeoDataLatLon } from "./api/geoCoding";
 
 function App() {
   const [bgImage, setBgImage] = useState<String>("default");

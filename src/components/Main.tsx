@@ -4,8 +4,8 @@ import Form from "./Form";
 import WeatherDataDisplay from "./WeatherDataDisplay";
 import { useEffect } from "react";
 import { WeatherDataFetch } from "../api/WeatherDataFetch";
-import { clearWeatherData, setWeatherData } from "../state/WeatherDataSlice";
-import { changeLoading, clearError, setError } from "../state/StatusSlice";
+import { clearWeatherData, setWeatherData } from "../state/weatherDataSlice";
+import { changeLoading, clearError, setError } from "../state/statusSlice";
 
 function Main() {
   const location = useSelector((state: RootState) => state.location);

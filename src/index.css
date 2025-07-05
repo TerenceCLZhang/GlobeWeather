@@ -29,7 +29,7 @@
   }
 
   .button-orange {
-    @apply bg-orange-600 hover:bg-orange-300 hover:text-black hover:scale-105 py-2 px-7 rounded-lg transition duration-100 ease-in;
+    @apply bg-orange-800 hover:bg-orange-300 hover:text-black hover:scale-105 py-2 px-7 rounded-lg transition duration-100 ease-in;
   }
 
   .dropdown {

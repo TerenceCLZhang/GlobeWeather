@@ -11,6 +11,7 @@ function Form() {
   const [value, setValue] = useState<string>("");
   const [suggestions, setSuggestions] = useState<LocationInterface[]>([]);
   const [showDropdown, setShowDropDown] = useState<boolean>(false);
+  const [highlightIndex, setHighlightIndex] = useState<number>(-1);
 
   const dispatch = useDispatch();
 
@@ -18,6 +19,7 @@ function Form() {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setShowDropDown(false);
+    setHighlightIndex(-1);
   };
 
   // Format location to be "name, state, country"
@@ -32,6 +34,7 @@ function Form() {
     const formatted = formatLocation(location);
     setValue(formatted);
     setShowDropDown(false);
+    setHighlightIndex(-1);
   };
 
   const showSuggestions = async () => {
@@ -42,6 +45,29 @@ function Form() {
       geoLocationFetch(value, setSuggestions, setShowDropDown, (msg: string) =>
         dispatch(setError(msg))
       );
+    }
+    setHighlightIndex(-1);
+  };
+
+  // Keyboard navigation for suggestions dropdown
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!showDropdown || suggestions.length === 0) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightIndex((prev) => (prev + 1) % suggestions.length);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightIndex((prev) =>
+        prev <= 0 ? suggestions.length - 1 : prev - 1
+      );
+    } else if (e.key === "Enter") {
+      if (highlightIndex >= 0 && highlightIndex < suggestions.length) {
+        e.preventDefault();
+        onSelectSuggestion(suggestions[highlightIndex]);
+      }
+    } else if (e.key === "Escape") {
+      setShowDropDown(false);
     }
   };
 
@@ -80,6 +106,7 @@ function Form() {
 
     setShowDropDown(false);
     setValue("");
+    setHighlightIndex(-1);
   };
 
   return (
@@ -95,6 +122,7 @@ function Form() {
           className="placeholder:text-gray-300 text-white border-2 border-gray-300 rounded-lg w-full py-2 px-3"
           name="locationName"
           onChange={onChange}
+          onKeyDown={onKeyDown}
           value={value}
           autoComplete="off"
           required
@@ -104,7 +132,13 @@ function Form() {
           <ul className="dropdown">
             {suggestions.length > 0 ? (
               suggestions.map((loc, idx) => (
-                <li key={idx} onClick={() => onSelectSuggestion(loc)}>
+                <li
+                  key={idx}
+                  onClick={() => onSelectSuggestion(loc)}
+                  className={`${
+                    idx === highlightIndex ? "bg-gray-600 text-white" : ""
+                  }`}
+                >
                   {loc.name} {loc.state ? `, ${loc.state}` : ""}, {loc.country}
                 </li>
               ))

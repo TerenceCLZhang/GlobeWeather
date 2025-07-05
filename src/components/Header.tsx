@@ -17,6 +17,9 @@ function Header() {
         type="button"
         className="absolute top-10 right-5 md:right-10 button-orange"
         onClick={() => dispatch(changeUnit())}
+        aria-label={`Switch to ${
+          unit === "metric" ? "imperial" : "metric"
+        } units`}
       >
         <b>{unit === "metric" ? "Imperial" : "Metric"}</b>
       </button>

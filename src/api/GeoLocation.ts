@@ -10,7 +10,7 @@ export const fetchGeoDataLatLon = async (
 ): Promise<LocationInterface[]> => {
   // console.log("API CALLED");
   const response = await axios.get<LocationInterface[]>(
-    "http://api.openweathermap.org/geo/1.0/reverse",
+    "https://api.openweathermap.org/geo/1.0/reverse",
     {
       params: {
         lat: lat,
@@ -29,7 +29,7 @@ export const fetchGeoData = async (
 ): Promise<LocationInterface[]> => {
   // console.log("API CALLED");
   const response = await axios.get<LocationInterface[]>(
-    "http://api.openweathermap.org/geo/1.0/direct",
+    "https://api.openweathermap.org/geo/1.0/direct",
     {
       params: {
         q: location.toLowerCase(),

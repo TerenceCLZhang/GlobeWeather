@@ -142,7 +142,7 @@ function Form() {
         />
 
         {showDropdown && (
-          <ul className="dropdown">
+          <ul id="location-suggestion-list" className="dropdown">
             {suggestions.length > 0 ? (
               suggestions.map((loc, idx) => (
                 <li

@@ -130,6 +130,7 @@ function Form() {
           value={value}
           autoComplete="off"
           required
+          role="combobox"
           aria-autocomplete="list"
           aria-controls="location-suggestion-list"
           aria-expanded={showDropdown}

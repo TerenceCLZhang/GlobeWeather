@@ -1,4 +1,4 @@
-# 🌍 GlobeWeather Website
+# 🌍 GlobeWeather
 
 **GlobeWeather** is a modern, accessible weather web application that allows users to search for any city worldwide and view real-time weather data in either Metric or Imperial units.
 

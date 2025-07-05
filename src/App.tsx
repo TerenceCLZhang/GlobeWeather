@@ -26,10 +26,17 @@ function App() {
 
   const dispatch = useDispatch();
 
+  // Geolocate the user or set default location
   useEffect(() => {
-    if (!navigator.geolocation) return;
+    if (!navigator.geolocation) {
+      // Geolocation not supported by the browser
+      // console.log("Geolocation not supported");
+      return;
+    }
 
+    // Geolocation available, try to get position
     navigator.geolocation.getCurrentPosition(async (position) => {
+      // User accepted geolocation
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
 
@@ -44,10 +51,14 @@ function App() {
       );
 
       const location = await fetchGeoDataLatLon(lat, lon);
-      dispatch(setLocation(location[0]));
+      if (location.length > 0) {
+        // console.log("Successfuly found location and displayed data");
+        dispatch(setLocation(location[0]));
+      }
     });
   }, []);
 
+  // Change background image depending on weather type
   useEffect(() => {
     setBgImage("default");
     const weatherType = weatherData?.main;

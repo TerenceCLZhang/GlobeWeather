@@ -13,7 +13,7 @@ function WeatherData() {
 
   const tempUnit = unit === "metric" ? "°C" : "°F";
   const speedUnit = unit === "metric" ? "km/h" : "mph";
-
+  
   const formatValue = (value: any, suffix: string = "") => {
     if (typeof value === "number" && suffix !== "hPa" && suffix !== "%")
       value = value.toFixed(2);

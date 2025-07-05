@@ -14,6 +14,7 @@ function Main() {
 
   const dispatch = useDispatch();
 
+  // Fetch weather data from API
   useEffect(() => {
     setError("");
     WeatherDataFetch(

@@ -14,11 +14,13 @@ function Form() {
 
   const dispatch = useDispatch();
 
+  // Change location
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setShowDropDown(false);
   };
 
+  // Format location to be "name, state, country"
   const formatLocation = (location: LocationInterface): string => {
     const formatted = `${location.name}${
       location.state ? `, ${location.state}` : ""
@@ -50,6 +52,7 @@ function Form() {
     const formData = new FormData(e.currentTarget);
     const locationName = formData.get("locationName")?.toString();
 
+    // Check if location exists in suggestions
     const match = suggestions.find(
       (locationToCheck) => formatLocation(locationToCheck) === locationName
     );
@@ -58,6 +61,7 @@ function Form() {
       dispatch(setLocation(match));
       setValue("");
     } else {
+      // Fetch location data from API
       try {
         const locationData = await fetchGeoData(locationName as string);
 

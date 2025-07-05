@@ -14,6 +14,7 @@ function Header() {
         </h1>
       </a>
       <button
+        type="button"
         className="absolute top-10 right-5 md:right-10 button-orange"
         onClick={() => dispatch(changeUnit())}
       >

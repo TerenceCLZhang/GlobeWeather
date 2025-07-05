@@ -6,11 +6,11 @@
   }
 
   header {
-    @apply mb-18 md:mb-5;
+    @apply mb-18 md:mb-15 xl:mb-5;
   }
 
   main {
-    @apply flex flex-col px-5 gap-5 md:gap-15 2xl:gap-[10rem] 2xl:w-[80vw] lg:flex-row lg:items-center;
+    @apply flex flex-col px-5 gap-5 md:gap-15 2xl:gap-[10rem] lg:w-[85vw] xl:w-[80vw] lg:flex-row lg:items-center lg:h-[73vh] xl:h-[65vh];
   }
 
   button,

@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { LocationInterface } from "../types/LocationInterface";
-import { handleAxiosError } from "./handleError";
+import { handleAxiosError } from "./HandleAxiosError";
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
